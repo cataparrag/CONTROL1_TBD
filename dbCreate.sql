@@ -1,4 +1,4 @@
-drop database Estacionamiento;
+drop database if exists  Estacionamiento;
 create database Estacionamiento;
 use Estacionamiento;
 

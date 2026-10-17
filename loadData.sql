@@ -107,3 +107,12 @@ INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
 (5, 6, 'E2-L02'),
 (4, 5, 'E3-L01'),
 (6, 7, 'E3-L02');
+
+-- Usos adicionales de lugares (para la consulta 8)
+INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
+(1, 1, 'E1-L01'),
+(1, 1, 'E1-L01'),
+(2, 3, 'E1-L01'),
+(1, 2, 'E1-L03'),
+(3, 4, 'E2-L02'),
+(5, 6, 'E2-L02');
