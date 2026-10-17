@@ -93,18 +93,10 @@ INSERT INTO Pago (monto, fechaPago, idContrato) VALUES
 
 -- 11. LUGARES
 INSERT INTO Lugar (idLugar, edificio) VALUES
-('E1-L01', 1),
-('E1-L02', 1),
-('E1-L03', 1),
-('E1-L04', 1),
-('E1-L05', 1),
-('E2-L01', 2),
-('E2-L02', 2),
-('E2-L03', 2),
-('E2-L04', 2),
-('E3-L01', 3),
-('E3-L02', 3),
-('E3-L03', 3);
+('E1-L01', 1), ('E1-L02', 1), ('E1-L03', 1), ('E1-L04', 1), ('E1-L05', 1),
+('E1-L06', 1), ('E1-L07', 1), ('E1-L08', 1), ('E1-L09', 1), ('E1-L10', 1),
+('E2-L01', 2), ('E2-L02', 2), ('E2-L03', 2), ('E2-L04', 2), ('E2-L05', 2),
+('E3-L01', 3), ('E3-L02', 3);
 
 -- 12. LUGAR CLIENTE VEHÍCULO
 INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
@@ -112,5 +104,6 @@ INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
 (1, 2, 'E1-L02'),
 (2, 3, 'E1-L03'),
 (3, 4, 'E2-L01'),
+(5, 6, 'E2-L02'),
 (4, 5, 'E3-L01'),
-(5, 6, 'E2-L02');
+(6, 7, 'E3-L02');
