@@ -2,10 +2,10 @@ USE Estacionamiento;
 
 -- Consulta 1: Lista de clientes que gasta más por edificio (duda dps)
 SELECT e.nombre AS edificio, cl.nombre, cl.apellido, SUM(p.monto) AS montoTotal
-FROM pago p
-JOIN contrato c ON p.idContrato = c.idContrato
-JOIN edificio e ON c.idEdificio = e.idEdificio
-JOIN cliente cl ON c.idCliente = cl.idCliente
+FROM Pago p
+JOIN Contrato c ON p.idContrato = c.idContrato
+JOIN Edificio e ON c.idEdificio = e.idEdificio
+JOIN Cliente cl ON c.idCliente = cl.idCliente
 GROUP BY e.idEdificio, e.nombre, cl.idCliente, cl.nombre, cl.apellido
 ORDER BY e.nombre, montoTotal DESC;
 
@@ -13,6 +13,14 @@ ORDER BY e.nombre, montoTotal DESC;
 
 -- Consulta 2: Modelos de auto menos recurrentes por edificio
 
+-- Consulta 4: Lista de comunas con la cantidad de clientes que residen en ellas
+SELECT
+	com.nombreComuna AS Comuna,
+    COUNT(c.idCliente) AS CantidadClientes
+FROM Comuna com
+LEFT JOIN Cliente c ON com.nombreComuna = c.comuna
+GROUP BY com.nombreComuna
+ORDER BY CantidadClientes DESC, com.nombreComuna ASC;
 
 -- Consulta 5: Lista de edificios con más lugares disponibles (sin contrato)
 SELECT
@@ -72,3 +80,17 @@ WITH empleadosPorEdificio AS (
 SELECT edificio, cantidadEmpleados
 FROM empleadosPorEdificio
 WHERE cantidadEmpleados = ( SELECT MAX( cantidadEmpleados) FROM empleadosPorEdificio);
+
+-- Consulta 10: Lista de sueldos por tipo de empleado, por edificio. Destacar la comuna del edificio
+SELECT
+	e.nombre AS Edificio,
+    e.comuna AS ComunaEdificio,
+    emp.tipoEmpleado AS Rol,
+    COUNT(emp.idEmpleado) AS CantidadTrabajadores,
+    SUM(s.montoTotal) AS GastoSueldosTotal, -- Se muestran sueldos totales por tipo de empleado
+    AVG(s.montoTotal) AS SueldoPromedio -- Se muestra sueldo promedio por tipo de empleado
+FROM Edificio e
+JOIN Empleado emp ON e.idEdificio = emp.idEdificio
+JOIN Sueldo s ON emp.idSueldo = s.idSueldo
+GROUP BY e.idEdificio, e.nombre, e.comuna, emp.tipoEmpleado
+ORDER BY e.comuna ASC, e.nombre ASC, GastoSueldosTotal DESC;
