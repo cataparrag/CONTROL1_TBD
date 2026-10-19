@@ -15,7 +15,11 @@ INSERT INTO Modelo (nombre) VALUES
 ('Suzuki Swift'),
 ('Nissan Versa'),
 ('BMW X5'),
-('Chevrolet Sail');
+('Chevrolet Sail'),
+('Kia Morning'), 
+('Subaru Impreza'), 
+('Ford F-150'), 
+('Peugeot 208');
 
 -- 3. SUELDOS
 INSERT INTO Sueldo (sueldoBase, montoHorasExtras, montoTotal) VALUES
@@ -24,7 +28,9 @@ INSERT INTO Sueldo (sueldoBase, montoHorasExtras, montoTotal) VALUES
 (850000, 0, 850000),
 (1200000, 150000, 1350000),
 (480000, 20000, 500000),
-(900000, 80000, 980000);
+(900000, 80000, 980000),
+(450000, 0, 450000),
+(750000, 50000, 800000);
 
 -- 4. EDIFICIOS
 INSERT INTO Edificio (idEdificio, nombre, calle, numero, comuna) VALUES
@@ -41,7 +47,11 @@ INSERT INTO Empleado (nombre, apellido, tipoEmpleado, comuna, idSueldo, idEdific
 ('María', 'Pérez', 'Administrador', 'Providencia', 4, 2),
 ('Jorge', 'Rojas', 'Guardia', 'Ñuñoa', 2, 2),
 ('Laura', 'Vargas', 'Administrador', 'Las Condes', 3, 3),
-('Diego', 'Silva', 'Guardia', 'Santiago', 6, 3);
+('Diego', 'Silva', 'Guardia', 'Santiago', 6, 3),
+('Sebastián', 'Pinto', 'Aseador', 'Santiago', 7, 3),
+('Camila', 'Gómez', 'Aseador', 'Estación Central', 7, 3),
+('Rodrigo', 'Cáceres', 'Guardia', 'Providencia', 1, 3),
+('Felipe', 'Morales', 'Supervisor', 'Las Condes', 8, 3);
 
 -- 6. CLIENTES
 INSERT INTO Cliente (nombre, apellido, comuna) VALUES
@@ -60,26 +70,35 @@ INSERT INTO Vehiculo (modelo) VALUES
 (3), -- Suzuki Swift (id 4)
 (5), -- BMW X5 (id 5)
 (4), -- Nissan Versa (id 6)
-(6); -- Chevrolet Sail (id 7)
+(6), -- Chevrolet Sail (id 7)
+(8), -- Subaru Impreza (id 8)
+(9), -- Ford F-150 (id 9)
+(10); -- Peugeot 208 (id 10)
 
 -- 8. CLIENTE VEHÍCULO
 INSERT INTO ClienteVehiculo (idCliente, idVehiculo) VALUES
-(1, 1), -- Matías - Yaris
-(1, 2), -- Matías - Accent
-(2, 3), -- Fernanda - Yaris
-(3, 4), -- Gonzalo - Swift
-(4, 5), -- Camila - BMW X5
-(5, 6), -- Valentina - Versa
-(6, 7); -- Ignacio - Sail
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4),
+(4, 5),
+(5, 6),
+(6, 7),
+(1, 8),
+(1, 9),
+(1, 10);
 
 -- 9. CONTRATOS
 INSERT INTO Contrato (fechaInicio, fechaFin, idEdificio, idCliente, idVehiculo) VALUES
-('2026-01-01', '2026-12-31', 1, 1, 1), -- Matías en Edificio 1
-('2026-02-01', '2026-12-31', 1, 1, 2), -- Matías (segundo auto) en Edificio 1
-('2026-01-15', '2026-06-30', 1, 2, 3), -- Fernanda en Edificio 1
-('2026-03-01', '2026-12-31', 2, 3, 4), -- Gonzalo en Edificio 2
-('2026-01-01', '2026-12-31', 3, 4, 5), -- Camila en Edificio 3
-('2026-04-01', '2026-10-31', 2, 5, 6); -- Valentina en Edificio 2
+('2026-01-01', '2026-12-31', 1, 1, 1),
+('2026-02-01', '2026-12-31', 1, 1, 2),
+('2026-01-15', '2026-06-30', 1, 2, 3),
+('2026-03-01', '2026-12-31', 2, 3, 4),
+('2026-01-01', '2026-12-31', 3, 4, 5),
+('2026-04-01', '2026-10-31', 2, 5, 6),
+('2026-05-01', '2026-12-31', 1, 1, 8),
+('2026-06-01', '2026-12-31', 1, 1, 9),
+('2026-07-01', '2026-12-31', 1, 1, 10);
 
 -- 10. PAGOS
 INSERT INTO Pago (monto, fechaPago, idContrato) VALUES
@@ -87,9 +106,13 @@ INSERT INTO Pago (monto, fechaPago, idContrato) VALUES
 (120000, '2026-02-05', 1),
 (150000, '2026-02-05', 2),
 (90000,  '2026-01-20', 3), 
-(200000, '2026-03-05', 4),
+(500000, '2026-03-05', 4),
+(600000, '2026-04-05', 4),
 (350000, '2026-01-10', 5),
-(100000, '2026-04-05', 6);
+(100000, '2026-04-05', 6),
+(150000, '2026-05-05', 7),
+(150000, '2026-06-05', 8),
+(150000, '2026-07-05', 9);
 
 -- 11. LUGARES
 INSERT INTO Lugar (idLugar, edificio) VALUES
@@ -106,10 +129,7 @@ INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
 (3, 4, 'E2-L01'),
 (5, 6, 'E2-L02'),
 (4, 5, 'E3-L01'),
-(6, 7, 'E3-L02');
-
--- Usos adicionales de lugares (para la consulta 8)
-INSERT INTO Lugar_CliVeh (idCliente, idVehiculo, idLugar) VALUES
+(6, 7, 'E3-L02'),
 (1, 1, 'E1-L01'),
 (1, 1, 'E1-L01'),
 (2, 3, 'E1-L01'),
