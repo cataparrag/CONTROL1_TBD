@@ -10,7 +10,6 @@ GROUP BY e.idEdificio, e.nombre, cl.idCliente, cl.nombre, cl.apellido
 ORDER BY e.nombre, montoTotal DESC;
 
 
-
 -- Consulta 2: Modelos de auto menos recurrentes por edificio
 WITH conteo AS (
 SELECT c.idEdificio, m.idModelo, m.nombre AS modeloAuto, count(v.idVehiculo) AS cantidad
