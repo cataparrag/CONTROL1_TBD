@@ -1,6 +1,6 @@
 USE Estacionamiento;
 
--- Consulta 1: Lista de clientes que gasta más por edificio (duda dps)
+-- Sentencia 1: Lista de clientes que gasta más por edificio (duda dps)
 SELECT e.nombre AS edificio, cl.nombre, cl.apellido, SUM(p.monto) AS montoTotal
 FROM pago p
 JOIN contrato c ON p.idContrato = c.idContrato
@@ -10,7 +10,7 @@ GROUP BY e.idEdificio, e.nombre, cl.idCliente, cl.nombre, cl.apellido
 ORDER BY e.nombre, montoTotal DESC;
 
 
--- Consulta 2: Modelos de auto menos recurrentes por edificio
+-- Sentencia 2: Modelos de auto menos recurrentes por edificio
 WITH conteo AS (
 SELECT c.idEdificio, m.idModelo, m.nombre AS modeloAuto, count(v.idVehiculo) AS cantidad
 FROM modelo m
@@ -28,7 +28,7 @@ JOIN minimos mini ON co.idEdificio = mini.idEdificio AND co.cantidad = mini.cant
 JOIN edificio e ON co.idEdificio = e.idEdificio
 ORDER BY e.nombre, co.modeloAuto;
 
--- Consulta 3: Empleados con mayor y menor sueldo por edificio.
+-- Sentencia 3: Empleados con mayor y menor sueldo por edificio.
 WITH sueldosEmpleado AS (
 select em.idEdificio, em.idEmpleado, em.nombre, em.apellido, s.montoTotal
 FROM Empleado em
@@ -44,7 +44,7 @@ SELECT MIN(montoTotal) FROM sueldosEmpleado su2
 WHERE su2.idEdificio = su.idEdificio)
 ORDER BY idEdificio, montoTotal DESC;
 
--- Consulta 4: Lista de comunas con la cantidad de clientes que residen en ellas
+-- Sentencia 4: Lista de comunas con la cantidad de clientes que residen en ellas
 SELECT
 	com.nombreComuna AS Comuna,
     COUNT(c.idCliente) AS CantidadClientes
@@ -53,7 +53,7 @@ LEFT JOIN Cliente c ON com.nombreComuna = c.comuna
 GROUP BY com.nombreComuna
 ORDER BY CantidadClientes DESC, com.nombreComuna ASC;
 
--- Consulta 5: Lista de edificios con más lugares disponibles (sin contrato)
+-- Sentencia 5: Lista de edificios con más lugares disponibles (sin contrato)
 SELECT
 	e.nombre AS edificio,
     SUM(CASE WHEN lcv.idLugar IS NULL THEN 1 ELSE 0 END) AS LugaresDisponibles
@@ -63,7 +63,7 @@ LEFT JOIN Lugar_CliVeh lcv ON l.idLugar = lcv.idLugar
 GROUP BY e.idEdificio, e.nombre
 ORDER BY LugaresDisponibles DESC;
 
--- Consulta 6: Lista de edificios con menos lugares disponibles
+-- Sentencia 6: Lista de edificios con menos lugares disponibles
 SELECT
 	e.nombre AS edificio,
     SUM(CASE WHEN lcv.idLugar IS NULL THEN 1 ELSE 0 END) AS LugaresDisponibles
@@ -73,7 +73,7 @@ LEFT JOIN Lugar_CliVeh lcv ON l.idLugar = lcv.idLugar
 GROUP BY e.idEdificio, e.nombre
 ORDER BY LugaresDisponibles ASC;
 
--- Consulta 7: Lista de Clientes con más autos por edificio. 
+-- Sentencia 7: Lista de Clientes con más autos por edificio. 
 WITH autosPorCliente AS (
     SELECT idEdificio, idCliente, COUNT(DISTINCT idVehiculo) AS cantidadAutos
     FROM Contrato
@@ -85,7 +85,7 @@ WHERE cantidadAutos = (
     SELECT MAX(cantidadAutos) FROM autosPorCliente a2
     WHERE a2.idEdificio = a.idEdificio
 );
--- Consulta 8 : Lugar mas usado por edificio
+-- Sentencia 8 : Lugar mas usado por edificio
 WITH usosPorLugar AS (
     SELECT l.edificio, l.idLugar, COUNT(*) AS cantidadUsos
     FROM Lugar_CliVeh lcv
@@ -100,7 +100,7 @@ WHERE cantidadUsos = (
 );
 
 
--- Consulta 9: Edificio con más empleados,indicando el numero de empleados de ese edificio
+-- Sentencia 9: Edificio con más empleados,indicando el numero de empleados de ese edificio
 WITH empleadosPorEdificio AS (
     SELECT e.nombre AS edificio , COUNT(*) AS cantidadEmpleados
     FROM Empleado em
@@ -112,7 +112,7 @@ SELECT edificio, cantidadEmpleados
 FROM empleadosPorEdificio
 WHERE cantidadEmpleados = ( SELECT MAX( cantidadEmpleados) FROM empleadosPorEdificio);
 
--- Consulta 10: Lista de sueldos por tipo de empleado, por edificio. Destacar la comuna del edificio
+-- Sentencia 10: Lista de sueldos por tipo de empleado, por edificio. Destacar la comuna del edificio
 SELECT
 	e.nombre AS Edificio,
     e.comuna AS ComunaEdificio,
