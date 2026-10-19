@@ -29,6 +29,17 @@ JOIN minimos mini ON co.idEdificio = mini.idEdificio AND co.cantidad = mini.cant
 JOIN edificio e ON co.idEdificio = e.idEdificio
 ORDER BY e.nombre, co.modeloAuto;
 
+-- Consulta 3: Empleados con mayor y menor sueldo por edificio.
+
+-- Consulta 4: Lista de comunas con la cantidad de clientes que residen en ellas
+SELECT
+	com.nombreComuna AS Comuna,
+    COUNT(c.idCliente) AS CantidadClientes
+FROM Comuna com
+LEFT JOIN Cliente c ON com.nombreComuna = c.comuna
+GROUP BY com.nombreComuna
+ORDER BY CantidadClientes DESC, com.nombreComuna ASC;
+
 -- Consulta 5: Lista de edificios con más lugares disponibles (sin contrato)
 SELECT
 	e.nombre AS edificio,
