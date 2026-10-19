@@ -29,6 +29,20 @@ JOIN edificio e ON co.idEdificio = e.idEdificio
 ORDER BY e.nombre, co.modeloAuto;
 
 -- Consulta 3: Empleados con mayor y menor sueldo por edificio.
+WITH sueldosEmpleado AS (
+select em.idEdificio, em.idEmpleado, em.nombre, em.apellido, s.montoTotal
+FROM Empleado em
+JOIN Sueldo s ON em.idSueldo = s.idSueldo
+)
+SELECT idEdificio, nombre, apellido, montoTotal
+FROM sueldosEmpleado su
+WHERE montoTotal = (
+SELECT MAX(montoTotal) FROM sueldosEmpleado su2
+WHERE su2.idEdificio = su.idEdificio)
+OR montoTotal = (
+SELECT MIN(montoTotal) FROM sueldosEmpleado su2
+WHERE su2.idEdificio = su.idEdificio)
+ORDER BY idEdificio, montoTotal DESC;
 
 -- Consulta 4: Lista de comunas con la cantidad de clientes que residen en ellas
 SELECT
