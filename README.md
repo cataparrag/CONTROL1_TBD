@@ -16,3 +16,8 @@ Proyecto desarrollado para la carrera de Ingeniería de Ejecución en Computaci�
 * `runStatements.sql`: Resolución de las 10 sentencias requeridas en el enunciado.
 * `diagrama_ER.png`: Diagrama Entidad-Relación de la base de datos.
 * `diccionario_datos.pdf`: Documentación técnica de las tablas, columnas y llaves.
+
+## Videos Demostrativos de la Ejecución
+* `Link`: https://drive.google.com/drive/folders/1hCbEdOj2FLceAafe_m8OzgksP9xeedCL?usp=sharing
+* `demostración_workbench.mp4`: Demostración en video de los script en MySQL Workbench.
+* `demostración_terminal_W10.mp4`: Demostración en video de los script en terminal de Windows 10.
